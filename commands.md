@@ -1,5 +1,9 @@
 Commands for Jetson Nano
 
+# Start chromium and make default
+open chrome://flags and disable smooth scroll
+open preferences and let chrome open with previous tabs
+
 # Python 3
 sudo apt-get install python3-pip libhdf5-serial-dev hdf5-tools
 
@@ -35,3 +39,47 @@ groups
 
 ### Guide stopped
 -----------------
+
+### The following follows the guide
+https://github.com/dusty-nv/jetbot_ros
+
+# Install ROS Medolic
+sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu $(lsb_release -sc) main" > /etc/apt/sources.list.d/ros-latest.list'
+sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
+sudo apt-get update
+sudo apt-get -y install ros-melodic-ros-base
+sudo rosdep init
+rosdep update
+sudo sh -c 'echo "source /opt/ros/melodic/setup.bash" >> ~/.bashrc'
+source ~/.bashrc
+sudo apt install python-rosinstall python-rosinstall-generator python-wstool build-essential
+
+# Install Adafruit libraries
+sudo apt-get install python-pip
+pip install Adafruit-MotorHAT Adafruit-SSD1306
+sudo reboot
+
+# Create Catkin workspace
+mkdir -p ~/workspace/catkin_ws/src
+cd ~/workspace/catkin_ws
+catkin_make
+sudo sh -c 'echo "source ~/workspace/catkin_ws/devel/setup.bash" >> ~/.bashrc'
+
+# Build Jetson inference
+sudo apt-get install git cmake qt4-qmake libqt4-dev libglew-dev
+cd ~/workspace
+git clone -b onnx https://github.com/dusty-nv/jetson-inference
+cd jetson-inference
+git submodule update --init
+mkdir build
+cd build
+cmake ../
+make
+sudo make install
+
+# Build Jetbot ROS
+cd ~/workspace/catkin_ws/src
+git clone https://github.com/dusty-nv/jetbot_ros
+cd ../ & catkin_make
+## Confirm that jetbot_ros can be found
+rospack find jetbot_ros
