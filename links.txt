@@ -1,0 +1,6 @@
+https://github.com/andrek10/Jetson-Nano-Commands
+https://github.com/dusty-nv/jetbot_ros
+https://github.com/NVIDIA/jetson-gpio?source=post_page---------------------------
+https://medium.com/@feicheung2016/getting-started-with-jetson-nano-and-autonomous-donkey-car-d4f25bbd1c83
+https://github.com/feicccccccc/donkeycar/blob/dev/donkeycar/parts/actuator.py
+https://github.com/NVIDIA/jetson-gpio
